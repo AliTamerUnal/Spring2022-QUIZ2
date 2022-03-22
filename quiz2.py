@@ -43,7 +43,7 @@ class Game:
             for ball in self._balls:
                 if ball.is_time_to_move(self._clock.get_time(), game._inter_move_wait_time):
                     ball.move(Game._window_width, Game._window_height)
-                    ball.draw(Game._screen)
+                ball.draw(Game._screen)
             pygame.display.flip()
             
             # END TASK 1.
@@ -62,12 +62,11 @@ class Ball:
         self._direction = [1, 1]
         self._total_wait_since_last_move = 0
         self._speed_multiplier = random.random() * 2
-        self._speed_change_direction = 1
 
     def is_time_to_move(self, time_since_last_tick, inter_move_wait_time):
 
         self._total_wait_since_last_move = self._total_wait_since_last_move + time_since_last_tick
-        if self._total_wait_since_last_move <= inter_move_wait_time:
+        if self._total_wait_since_last_move <= inter_move_wait_time * self._speed_multiplier:
              return False
         else:
             return True
